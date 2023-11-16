@@ -1,0 +1,5 @@
+*.ncb
+*.suo
+termwin/debug/
+*.user
+termwin/termwin/Debug/
