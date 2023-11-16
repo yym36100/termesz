@@ -10,6 +10,9 @@ typedef struct stCmd{
 
 class cCmdHandler{
 public:
+	enum {maxArgs = 10,};
+	char *pArgs[maxArgs];
+	int argc;
 	tstCmd	*pCmds;
 	int		size;
 
@@ -21,5 +24,45 @@ public:
 				return i;
 		}
 		return -1;
+	}
+	void listAllCmds(void){
+		printf("All available commands:\n");
+		for(int i=0;i<size;i++){
+			printf("\t%s\n",pCmds[i].name);
+		}		
+	}
+	
+	void tokenize(char *str){
+		argc = 0;
+		int tokenfound = 0;
+		char *tokenStart = str;		
+		while(argc<maxArgs){			
+			if(*str<0x21){
+				//whitespace char found this delimits the tokens				
+				if(tokenfound){
+					
+					pArgs[argc++] = tokenStart;
+					tokenfound = 0;
+					if(*str==0) break; 
+					else *str = 0;
+				}				
+			} else { //normal char
+				if(!tokenfound){
+					tokenfound = 1;
+					tokenStart = str;
+				}
+			}					
+			str++;
+		}		
+	}
+
+	int exec(char *str){
+		printf("exec %s\n",str);
+		tokenize(str);
+		printf("argc=%d\n",argc);
+		for(int i=0;i<argc;i++){
+			printf("argv[%d] = >%s<\n",i,pArgs[i]);
+		}
+		return 0;
 	}
 };
