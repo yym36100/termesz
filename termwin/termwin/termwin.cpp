@@ -10,8 +10,13 @@ tstCmd astCmds[]={
 	{"second",(tCmdFunc)f2},
 };
 
+cCmdHandler CmdH(astCmds,sizeof(astCmds)/sizeof(astCmds[0]));
+
 int main(int argc, char* argv[])
-{
+{	
+	int a;
+	a = CmdH.getCmdByName("second");
+	printf("a=%d\n",a);
 	printf("cmd func result=%d\n",astCmds[1].cmdFunc(0,0));
 	return 0;
 }
