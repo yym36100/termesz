@@ -31,38 +31,45 @@ public:
 			printf("\t%s\n",pCmds[i].name);
 		}		
 	}
-	
+
 	void tokenize(char *str){
 		argc = 0;
 		int tokenfound = 0;
-		char *tokenStart = str;		
-		while(argc<maxArgs){			
+		char *tokenStart = str;
+		char br = 0;
+		while(argc<maxArgs){
+			if(*str==0) br=1;
 			if(*str<0x21){
 				//whitespace char found this delimits the tokens				
 				if(tokenfound){
-					
 					pArgs[argc++] = tokenStart;
 					tokenfound = 0;
-					if(*str==0) break; 
-					else *str = 0;
+					*str = 0;
 				}				
 			} else { //normal char
 				if(!tokenfound){
 					tokenfound = 1;
 					tokenStart = str;
 				}
-			}					
+			}				
+			if(br)break;
 			str++;
 		}		
 	}
 
 	int exec(char *str){
+		int res=-1;
 		printf("exec %s\n",str);
 		tokenize(str);
 		printf("argc=%d\n",argc);
 		for(int i=0;i<argc;i++){
 			printf("argv[%d] = >%s<\n",i,pArgs[i]);
 		}
-		return 0;
+
+		int c = getCmdByName(pArgs[0]);
+		if(c!=-1){
+			res = pCmds[c].cmdFunc(argc,pArgs);
+		}
+		return res;
 	}
 };
