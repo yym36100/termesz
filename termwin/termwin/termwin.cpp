@@ -62,22 +62,43 @@ int opt_main(int argc, char **argv){
     return 0;
 }
 
+int f_help(int argc, char* argv[]);
 
-char test_args[]="opt_main    -a	-b 9 -cszep	-d8    ";
+char test_args[]="add 1 2";
 tstCmd astCmds[]={
 	{"first",(tCmdFunc)f1},
 	{"second",(tCmdFunc)f2},
 	{"add",(tCmdFunc)f_add},
 	{"opt_main",(tCmdFunc)opt_main},
+	{"help",(tCmdFunc)f_help},
+	{"hello",(tCmdFunc)f_help},
 };
 
 cCmdHandler CmdH(astCmds,sizeof(astCmds)/sizeof(astCmds[0]));
 
-cHistory myHist;
+int f_help(int argc, char* argv[]){
+	CmdH.listAllCmds();
+	return 0;
+}
+
 
 int main(int argc, char* argv[])
 {	
 	char t[10];
+	int a;
+	cstrHist h;
+	h.add(test_args);
+//	h.list_all();
+
+	CmdH.findmatch("h");
+	CmdH.exec("help");
+	h.add("help");
+	a=CmdH.exec(test_args);
+	h.add(test_args);
+
+	printf("a=%d\n",a);
+
+	h.list_all();
 
 
 #if 0

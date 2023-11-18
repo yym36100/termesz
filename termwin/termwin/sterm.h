@@ -33,6 +33,31 @@ public:
 		}		
 	}
 
+	bool isPrefix(const char* str1, const char* str2) {
+		while (*str1 != '\0') {
+			// If characters don't match or str2 is shorter than str1
+			if (*str1 != *str2 || *str2 == '\0') {
+				return false;
+			}
+			str1++;
+			str2++;
+		}
+		// All characters matched till the end of str1
+		return true;
+	}
+
+	int findmatch(char *str){
+		printf("find match for %s\n", str);
+		int j=-1;
+		for(int i=0;i<size;i++){
+			if(isPrefix(str,pCmds[i].name)){
+				printf("%s -> %s\n", str, pCmds[i].name);
+				j=i;
+			}
+		}
+		return j;
+	}
+
 	void tokenize(char *str){
 		argc = 0;
 		int tokenfound = 0;
@@ -45,7 +70,7 @@ public:
 				if(tokenfound){
 					pArgs[argc++] = tokenStart;
 					tokenfound = 0;
-					*str = 0;
+					if(*str) *str = 0;
 				}				
 			} else { //normal char
 				if(!tokenfound){
