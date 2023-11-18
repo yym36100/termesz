@@ -36,7 +36,8 @@ public:
 		}
 	}
 
-	uint16_t getPrev(uint16_t i){
+	uint16_t getPrev(int i=-1){
+		if(i==-1)i=wi;
 		i=i==0?hist_size-1: i-1;
 		while(1){
 			i=i==0?hist_size-1: i-1;

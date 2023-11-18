@@ -85,6 +85,11 @@ public:
 
 	int exec(char *str){
 		int res=-1;
+		if(*str==0){
+			//handle empty command, nothing
+			printf("\n");
+			return 0;
+		}
 		printf("exec %s\n",str);
 		tokenize(str);
 		printf("argc=%d\n",argc);
@@ -95,6 +100,8 @@ public:
 		int c = getCmdByName(pArgs[0]);
 		if(c!=-1){
 			res = pCmds[c].cmdFunc(argc,pArgs);
+		} else {
+			printf("command not found, see help for available commands\n");
 		}
 		return res;
 	}
