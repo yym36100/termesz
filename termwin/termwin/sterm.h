@@ -1,5 +1,6 @@
 #pragma once
 #include <string.h>
+#include <stdio.h>
 
 typedef int(*tCmdFunc)(int argc, char *argv[]);
 

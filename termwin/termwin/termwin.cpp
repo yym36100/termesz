@@ -3,9 +3,14 @@
 #include <stdlib.h>
 
 #include "sterm.h"
+#include "ringbuff.h"
 
 #define OPTPARSE_IMPLEMENTATION
 #include "optparse.h"
+
+#include "hist.h"
+
+
 
 int f1(int argc, char* argv[]){ return 1;}
 int f2(int argc, char* argv[]){ return 2;}
@@ -46,7 +51,7 @@ int opt_main(int argc, char **argv){
 			printf("opt d=%d ok\n",delay);
             break;
         case '?':
-            fprintf(stderr, "%s: %s\n", argv[0], options.errmsg);
+//            fprintf(stderr, "%s: %s\n", argv[0], options.errmsg);
             exit(0);
         }
     }
@@ -68,8 +73,30 @@ tstCmd astCmds[]={
 
 cCmdHandler CmdH(astCmds,sizeof(astCmds)/sizeof(astCmds[0]));
 
+cHistory myHist;
+
 int main(int argc, char* argv[])
 {	
+	char t[10];
+
+
+#if 0
+	printf("add abc ---------\n");
+	termHist.Addn("abc", 3);
+	termHist.list();
+	termHist.Removen(t,3);	
+	printf("add 123 ---------\n");
+	termHist.Addn("123", 3);
+	termHist.list();
+
+	termHist.Addn("A", 1);
+	termHist.Remove(t);
+	termHist.Remove(t);
+	
+	termHist.Addn("mn", 2);
+	termHist.list();
+	
+
 	int a,b;
 	b = CmdH.exec(test_args);
 	CmdH.listAllCmds();
@@ -77,5 +104,6 @@ int main(int argc, char* argv[])
 	printf("a=%d\n",a);
 	printf("cmd func result=%d\n",b);
 	return 0;
+#endif
 }
 

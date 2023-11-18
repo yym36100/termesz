@@ -175,7 +175,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\hist.h"
+				>
+			</File>
+			<File
 				RelativePath=".\optparse.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ringbuff.h"
 				>
 			</File>
 			<File

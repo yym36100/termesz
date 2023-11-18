@@ -3,3 +3,10 @@
 termwin/debug/
 *.user
 termwin/termwin/Debug/
+*.opensdf
+*.sdf
+*.filters
+.metadata/
+termstm/Debug/
+termstm/.settings/
+termwin/strhist/Debug/
