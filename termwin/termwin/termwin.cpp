@@ -30,49 +30,66 @@ int f_add(int argc, char* argv[]){
 }
 
 int opt_main(int argc, char **argv){
-    bool amend = false;
-    bool brief = false;
-    const char *color = "white";
-    int delay = 0;
+	bool amend = false;
+	bool brief = false;
+	const char *color = "white";
+	int delay = 0;
 
-    char *arg;
-    int option;
-    struct optparse options;
+	char *arg;
+	int option;
+	struct optparse options;
 
-    (void)argc;
-    optparse_init(&options, argv);
-    while ((option = optparse(&options, "abc:d::")) != -1) {
-        switch (option) {
-        case 'a':
-            amend = true;
+	(void)argc;
+	optparse_init(&options, argv);
+	while ((option = optparse(&options, "abc:d::")) != -1) {
+		switch (option) {
+		case 'a':
+			amend = true;
 			printf("opt a ok\n");
-            break;
-        case 'b':
-            brief = true;
+			break;
+		case 'b':
+			brief = true;
 			printf("opt b ok\n");
-            break;
-        case 'c':
-            color = options.optarg;
+			break;
+		case 'c':
+			color = options.optarg;
 			printf("opt c=%s ok\n",color);
-            break;
-        case 'd':
-            delay = options.optarg ? atoi(options.optarg) : 1;
+			break;
+		case 'd':
+			delay = options.optarg ? atoi(options.optarg) : 1;
 			printf("opt d=%d ok\n",delay);
-            break;
-        case '?':
-//            fprintf(stderr, "%s: %s\n", argv[0], options.errmsg);
-            exit(0);
-        }
-    }
+			break;
+		case '?':
+			//            fprintf(stderr, "%s: %s\n", argv[0], options.errmsg);
+			exit(0);
+		}
+	}
 
-    /* Print remaining arguments. */
-    while ((arg = optparse_arg(&options)))
+	/* Print remaining arguments. */
+	while ((arg = optparse_arg(&options)))
 		printf("remaining args: %s\n", arg);
-    return 0;
+	return 0;
 }
 
 int f_help(int argc, char* argv[]);
 int f_hist(int argc, char* argv[]);
+
+int cls_main(int argc, char* argv[]){
+	printf("lofsz\n");
+	return 1;
+}
+
+int colors_main(int argc, char* argv[]){
+	printf("lofsz\n");
+
+	FILE *f=fopen("AnsiColors256.ans","rb");
+	if(!f) return 0;
+	char str[256*1024];
+	str[fread(str,1,256*1024,f)]=0;
+	printf(str);
+	fclose(f);
+	return 1;
+}
 
 char test_args[]="add 1 2";
 tstCmd astCmds[]={
@@ -85,6 +102,8 @@ tstCmd astCmds[]={
 	{"quit",(tCmdFunc)f_quit},
 	{"hist",(tCmdFunc)f_hist},
 	{"donut",(tCmdFunc)donut_main},
+	{"cls",(tCmdFunc)cls_main},
+	{"colors",(tCmdFunc)colors_main},
 };
 
 cCmdHandler CmdH(astCmds,sizeof(astCmds)/sizeof(astCmds[0]));
@@ -106,9 +125,13 @@ int f_hist(int argc, char* argv[]){
 
 int main(int argc, char* argv[])
 {
+
 	lineEdit.pCmdH = &CmdH;
 	lineEdit.pHist = &h;
 	char a;
+
+	printf("termesz started\n");
+	printf(">");
 	while(1){
 		a=_getch();
 		lineEdit.handle_char(a);
@@ -119,7 +142,7 @@ int main(int argc, char* argv[])
 	int a;
 	cstrHist h;
 	h.add(test_args);
-//	h.list_all();
+	//	h.list_all();
 
 	CmdH.findmatch("h");
 	CmdH.exec("help");
@@ -132,7 +155,7 @@ int main(int argc, char* argv[])
 	h.list_all();
 
 
-//#if 0
+	//#if 0
 	printf("add abc ---------\n");
 	termHist.Addn("abc", 3);
 	termHist.list();
@@ -144,10 +167,10 @@ int main(int argc, char* argv[])
 	termHist.Addn("A", 1);
 	termHist.Remove(t);
 	termHist.Remove(t);
-	
+
 	termHist.Addn("mn", 2);
 	termHist.list();
-	
+
 
 	int a,b;
 	b = CmdH.exec(test_args);

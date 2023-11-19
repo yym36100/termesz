@@ -6,6 +6,8 @@
 #include <math.h>
 #include <conio.h>
 int k;
+// https://conemu.github.io/en/AnsiEscapeCodes.html
+
 int donut_main(int argc, char **argv){
 	float A=0,B=0,i,j,z[1760];
 	char b[1760];
@@ -25,15 +27,16 @@ int donut_main(int argc, char **argv){
 					l=cos      (i),
 					m=cos(B),
 					n=sin(B),
-					t=c*h*g-f*        e;
-				int x=40+30*D* (l*h*m-t*n),
-					y=            12+15*D*(l*h*n +t*m),
+					t=c*h*g-f*e;
+				int x=40+30*D*(l*h*m-t*n),
+					y=12+15*D*(l*h*n +t*m),
 					o=x+80*y,
-					N=8*((f*e-c*d*g )*m-c*d*e-f*g-l        *d*n);
+					N=8*((f*e-c*d*g )*m-c*d*e-f*g-l*d*n);
 				if(22>y&& y>0&&x>0&&80>x&&D>z[o]){
-					z[o]=D;;;b[o]= ".,-~:;=!*#$@"[N>0?N:0];
+					z[o]=D;
+					b[o]= ".,-~:;=!*#$@"[N>0?N:0];
 				}
-			}/*#****!!-*/
+			}
 			printf("\x1b[H");
 			for(k=0;1761>k;k++)
 				putchar(k%80?b[k]:10);
