@@ -17,6 +17,7 @@
 
 int f1(int argc, char* argv[]){ return 1;}
 int f2(int argc, char* argv[]){ return 2;}
+int donut_main(int argc, char **argv);
 
 int f_quit(int argc, char* argv[]){ exit(0);return 2;}
 
@@ -83,6 +84,7 @@ tstCmd astCmds[]={
 	{"hello",(tCmdFunc)f_help},
 	{"quit",(tCmdFunc)f_quit},
 	{"hist",(tCmdFunc)f_hist},
+	{"donut",(tCmdFunc)donut_main},
 };
 
 cCmdHandler CmdH(astCmds,sizeof(astCmds)/sizeof(astCmds[0]));
